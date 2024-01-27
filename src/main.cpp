@@ -50,7 +50,7 @@ void read_temp(){
 
 void loop() {
   Serial.println("hello from esp32");
-  // read_temp();
-  // send_temprature_readings();
+  read_temp();
+  send_temprature_readings();
   delay(1000);
 }
