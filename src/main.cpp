@@ -14,7 +14,9 @@ int humid = 0;
 int temp = 0;
 
 void setup() {
+
   Serial.begin(9600);
+  pinMode(4, OUTPUT);
 
   WiFi.begin("Luitel 2G", "binu@123");
   Serial.println("Connecting");
@@ -27,7 +29,7 @@ void setup() {
 }
 
 void send_temprature_readings(){
-  http.begin("http://192.168.101.12:8080/api/add");
+  http.begin("http://192.168.101.13:8080/api/add");
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");
   char parameters[1024];
   sprintf(parameters, "humidity=%d&temprature=%d", humid, temp);
@@ -50,7 +52,10 @@ void read_temp(){
 
 void loop() {
   Serial.println("hello from esp32");
+  digitalWrite(4, HIGH);
   read_temp();
   send_temprature_readings();
-  delay(1000);
+  delay(100);
+  digitalWrite(4, LOW);
+  delay(900);
 }
